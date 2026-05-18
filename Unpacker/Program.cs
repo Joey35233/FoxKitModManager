@@ -1,7 +1,5 @@
-﻿using System.IO.Compression;
-using System.Xml;
+﻿using System.Xml;
 using Fox.FileSystem;
-using FileInfo = System.IO.FileInfo;
 
 namespace FoxKit.ModManager.Unpacker
 {
@@ -33,7 +31,7 @@ namespace FoxKit.ModManager.Unpacker
             
                 ulong decryptedManifestSize = 0;
                 fixed (byte* manifestDataPtr = manifestDataBuffer)
-                    Decrypter.Decrypt(manifestDataPtr, manifestHandle.GetSize(), manifestDataPtr, &decryptedManifestSize);
+                    decryptedManifestSize = Decrypter.Decrypt(manifestDataPtr, manifestHandle.GetSize(), manifestDataPtr, &decryptedManifestSize);
 
                 manifestData = manifestDataBuffer.AsSpan(0, (int)decryptedManifestSize);
             }
